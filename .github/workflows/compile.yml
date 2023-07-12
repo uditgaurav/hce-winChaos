@@ -13,7 +13,15 @@ jobs:
 
     steps:
       - name: Set up MinGW
-        uses: dawidd6/action-setup-mingw@v2
+        run: |
+          curl -L -o mingw-w64.zip https://sourceforge.net/projects/mingw-w64/files/latest/download
+          7z x -y mingw-w64.zip -oC:\mingw
+          rm mingw-w64.zip
+          echo "::add-path::C:\mingw\mingw64\bin"
+
+      - name: Install dependencies
+        run: |
+          pacman -Sy --noconfirm mingw-w64-x86_64-gcc
 
       - name: Checkout code
         uses: actions/checkout@v2
