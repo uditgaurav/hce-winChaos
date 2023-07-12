@@ -12,18 +12,15 @@ jobs:
     steps:
       - name: Set up MinGW
         run: |
-          curl -L -o mingw-w64.zip https://sourceforge.net/projects/mingw-w64/files/latest/download
-          7z x -y mingw-w64.zip -oC:\mingw
-          rm mingw-w64.zip
-          echo 'C:\mingw\mingw64\bin' >> $GITHUB_PATH
+          Invoke-WebRequest -Uri 'https://github.com/msys2/msys2-installer/releases/latest/download/msys2-base-x86_64-latest.tar.xz' -OutFile 'msys2-base-x86_64-latest.tar.xz'
+          tar xf msys2-base-x86_64-latest.tar.xz
+          mv msys64 C:\msys64
+          C:\msys64\usr\bin\bash.exe --login -c "echo 'export PATH=/mingw64/bin:$PATH' >> ~/.bashrc"
+          C:\msys64\usr\bin\bash.exe --login pacman --noconfirm -Sy mingw-w64-x86_64-gcc
 
       - name: Install dependencies
         run: |
-          $url = 'https://github.com/lukesampson/scoop/releases/download/v1.9.2/scoop-v1.9.2-installer.exe'
-          Invoke-WebRequest -Uri $url -OutFile 'scoop-installer.exe'
-          ./scoop-installer.exe
-          scoop install msys2
-          echo 'C:\tools\msys64\mingw64\bin' >> $GITHUB_PATH
+          pacman --noconfirm -Sy mingw-w64-x86_64-gcc
 
       - name: Checkout code
         uses: actions/checkout@v2
