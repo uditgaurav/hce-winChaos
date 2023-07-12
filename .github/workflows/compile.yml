@@ -14,9 +14,8 @@ jobs:
     steps:
       - name: Set up MinGW
         run: |
-          curl -L -o mingw-w64.exe https://github.com/msys2/msys2-installer/releases/latest/download/MinGW-w64-builds.exe
-          7z x -y mingw-w64.exe -oC:\mingw
-          rm mingw-w64.exe
+          curl -L -o msys2installer.exe https://github.com/msys2/msys2-installer/releases/download/2021-11-23/msys2-x86_64-20211123.exe
+          msys2installer.exe --quiet-mode --only-location --no-startmenu --disable-bash --skip-keybase --skip-terminfo --skip-npm --skip-autoupdate --root C:\mingw
           echo 'C:\mingw\mingw64\bin' >> $GITHUB_PATH
 
       - name: Install dependencies
