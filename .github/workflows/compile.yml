@@ -5,7 +5,7 @@ on:
     inputs:
       release_tag:
         description: 'Release tag'
-        required: true
+        required: false
 
 jobs:
   build:
@@ -35,10 +35,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.event.inputs.release_tag }}
-          release_name: Release ${{ github.event.inputs.release_tag }}
+          tag_name: ${{ github.run_number }}
+          release_name: Release ${{ github.run_number }}
           body: |
-            Release ${{ github.event.inputs.release_tag }}
+            Release ${{ github.run_number }}
           draft: false
           prerelease: false
 
