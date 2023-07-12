@@ -17,7 +17,7 @@ jobs:
           curl -L -o mingw-w64.zip https://sourceforge.net/projects/mingw-w64/files/latest/download
           7z x -y mingw-w64.zip -oC:\mingw
           rm mingw-w64.zip
-          echo "::add-path::C:\mingw\mingw64\bin"
+          echo 'C:\mingw\mingw64\bin' >> $GITHUB_PATH
 
       - name: Install dependencies
         run: |
