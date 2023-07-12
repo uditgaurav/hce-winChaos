@@ -12,8 +12,10 @@ jobs:
     steps:
       - name: Set up MinGW
         run: |
-          choco install -y msys2 --version=20210629.0.0
-          echo 'C:\tools\msys64\mingw64\bin' >> $GITHUB_PATH
+          curl -L -o mingw-w64.zip https://sourceforge.net/projects/mingw-w64/files/latest/download
+          7z x -y mingw-w64.zip -oC:\mingw
+          rm mingw-w64.zip
+          echo 'C:\mingw\mingw64\bin' >> $GITHUB_PATH
 
       - name: Install dependencies
         run: |
