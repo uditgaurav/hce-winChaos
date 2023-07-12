@@ -19,7 +19,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pacman -Sy --noconfirm mingw-w64-x86_64-gcc
+          $url = 'https://github.com/lukesampson/scoop/releases/download/v1.9.2/scoop-v1.9.2-installer.exe'
+          Invoke-WebRequest -Uri $url -OutFile 'scoop-installer.exe'
+          ./scoop-installer.exe
+          scoop install msys2
+          echo 'C:\tools\msys64\mingw64\bin' >> $GITHUB_PATH
 
       - name: Checkout code
         uses: actions/checkout@v2
