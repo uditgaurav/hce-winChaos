@@ -14,9 +14,9 @@ jobs:
     steps:
       - name: Set up MinGW
         run: |
-          curl -L -o mingw-w64.zip https://mingw-w64.org/doku.php/_download/win-builds/win-builds-1.5.0.zip
-          7z x -y mingw-w64.zip -oC:\mingw
-          rm mingw-w64.zip
+          curl -L -o mingw-w64.exe https://github.com/msys2/msys2-installer/releases/latest/download/MinGW-w64-builds.exe
+          7z x -y mingw-w64.exe -oC:\mingw
+          rm mingw-w64.exe
           echo 'C:\mingw\mingw64\bin' >> $GITHUB_PATH
 
       - name: Install dependencies
