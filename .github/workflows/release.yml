@@ -1,0 +1,26 @@
+name: Release
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Set up MinGW
+      uses: mback2k/Setup-MinGW@v1
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Compile code
+      run: gcc -o winchaos.exe main.c -lwindivert -lws2_32
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: winchaos
+        path: winchaos.exe
