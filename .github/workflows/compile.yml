@@ -13,13 +13,10 @@ jobs:
 
     steps:
       - name: Set up MinGW
-        uses: actions/setup-msys2@v1
+        uses: dawidd6/action-setup-mingw@v2
 
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Install MinGW packages
-        run: pacman -S --noconfirm mingw-w64-x86_64-gcc
 
       - name: Compile code
         run: gcc -o winchaos.exe main.c -lwindivert -lws2_32
