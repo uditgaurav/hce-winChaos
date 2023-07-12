@@ -19,8 +19,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          mingw-get update
-          mingw-get install -y mingw-w64-x86_64-gcc
+          pacman -Sy --noconfirm mingw-w64-x86_64-gcc
 
       - name: Checkout code
         uses: actions/checkout@v2
