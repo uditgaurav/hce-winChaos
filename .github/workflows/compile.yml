@@ -7,17 +7,20 @@ on:
 
 jobs:
   build:
-    runs-on: windows-2019
+    runs-on: windows-latest
 
     steps:
       - name: Set up MinGW
         run: |
-          choco install -y mingw
-          echo 'C:\tools\mingw64\bin' >> $GITHUB_PATH
+          curl -L -o msys2-base-x86_64.tar.xz https://github.com/msys2/msys2-installer/releases/latest/download/msys2-base-x86_64.tar.xz
+          7z x -y msys2-base-x86_64.tar.xz -oC:\msys2
+          C:\msys2\usr\bin\bash.exe -lc "echo -e '[mingw64]\nSigLevel = Optional TrustAll\nServer = https://mirrors.kernel.org/archlinux/$repo/os/$arch' >> /etc/pacman.conf"
+          C:\msys2\usr\bin\bash.exe -lc "pacman -Syu --noconfirm"
+          C:\msys2\usr\bin\bash.exe -lc "pacman -S --noconfirm mingw-w64-x86_64-gcc"
 
-      - name: Install dependencies
+      - name: Set up environment
         run: |
-          pacman --noconfirm -Sy mingw-w64-x86_64-gcc
+          echo 'C:\msys2\mingw64\bin' >> $GITHUB_PATH
 
       - name: Checkout code
         uses: actions/checkout@v2
