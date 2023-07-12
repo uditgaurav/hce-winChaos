@@ -1,11 +1,9 @@
 name: Build
 
 on:
-  workflow_dispatch:
-    inputs:
-      release_tag:
-        description: 'Release tag'
-        required: false
+  push:
+    branches:
+      - master
 
 jobs:
   build:
