@@ -14,15 +14,14 @@ jobs:
     steps:
       - name: Set up MinGW
         run: |
-          curl -L -o mingw-w64.zip https://sourceforge.net/projects/mingw-w64/files/latest/download
+          curl -L -o mingw-w64.zip https://mingw-w64.org/doku.php/_download/win-builds/win-builds-1.5.0.zip
           7z x -y mingw-w64.zip -oC:\mingw
           rm mingw-w64.zip
           echo 'C:\mingw\mingw64\bin' >> $GITHUB_PATH
 
       - name: Install dependencies
         run: |
-          mingw-get update
-          mingw-get install -y mingw64/mingw-w64-x86_64-gcc
+          pacman -Sy --noconfirm mingw-w64-x86_64-gcc
 
       - name: Checkout code
         uses: actions/checkout@v2
